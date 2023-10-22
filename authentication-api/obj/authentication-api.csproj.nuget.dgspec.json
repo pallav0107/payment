@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/pallav/nodejs/payments/payments-api/PaymentsApi.csproj": {}
+    "/home/pallav/nodejs/payments/authentication-api/authentication-api.csproj": {}
   },
   "projects": {
-    "/home/pallav/nodejs/payments/payments-api/PaymentsApi.csproj": {
+    "/home/pallav/nodejs/payments/authentication-api/authentication-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/pallav/nodejs/payments/payments-api/PaymentsApi.csproj",
-        "projectName": "PaymentsApi",
-        "projectPath": "/home/pallav/nodejs/payments/payments-api/PaymentsApi.csproj",
-        "packagesPath": "/home/pallav/.nuget/packages/",
-        "outputPath": "/home/pallav/nodejs/payments/payments-api/obj/",
+        "projectUniqueName": "/home/pallav/nodejs/payments/authentication-api/authentication-api.csproj",
+        "projectName": "authentication-api",
+        "projectPath": "/home/pallav/nodejs/payments/authentication-api/authentication-api.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/home/pallav/nodejs/payments/authentication-api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/pallav/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -38,14 +38,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Identity": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"

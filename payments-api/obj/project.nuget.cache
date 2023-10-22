@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gPK+DxZFXhxuQ2envl5puhgpwkk/rXnzXgLSOQU7gUXO2VjNh4v56O/Cl+D1k1i1mKGWyr1LaGylbH2MVhtNQA==",
+  "dgSpecHash": "+/hH0XGmG5mCIgwqTDz/MWF0h0YAND6IUFXO4hkECeG5XBrskBTck7zbHwCxPKWUmmjLc4Z795rnIYujMqyFKw==",
   "success": true,
-  "projectFilePath": "/home/pallav/nodejs/PaymentsApi/PaymentsApi.csproj",
+  "projectFilePath": "/home/pallav/nodejs/payments/payments-api/PaymentsApi.csproj",
   "expectedPackageFiles": [
     "/home/pallav/.nuget/packages/microsoft.aspnetcore.authentication/2.2.0/microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
@@ -53,9 +53,9 @@
     "/home/pallav/.nuget/packages/system.security.permissions/4.5.0/system.security.permissions.4.5.0.nupkg.sha512",
     "/home/pallav/.nuget/packages/system.security.principal.windows/4.5.0/system.security.principal.windows.4.5.0.nupkg.sha512",
     "/home/pallav/.nuget/packages/system.text.encodings.web/4.5.0/system.text.encodings.web.4.5.0.nupkg.sha512",
+    "/home/pallav/.nuget/packages/microsoft.netcore.app.ref/6.0.8/microsoft.netcore.app.ref.6.0.8.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.8/microsoft.aspnetcore.app.ref.6.0.8.nupkg.sha512",
-    "/home/pallav/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.8/microsoft.netcore.app.host.linux-x64.6.0.8.nupkg.sha512",
-    "/home/pallav/.nuget/packages/microsoft.netcore.app.ref/6.0.8/microsoft.netcore.app.ref.6.0.8.nupkg.sha512"
+    "/home/pallav/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.8/microsoft.netcore.app.host.linux-x64.6.0.8.nupkg.sha512"
   ],
   "logs": []
 }

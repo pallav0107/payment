@@ -1801,11 +1801,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/pallav/nodejs/PaymentsApi/PaymentsApi.csproj",
+      "projectUniqueName": "/home/pallav/nodejs/payments/payments-api/PaymentsApi.csproj",
       "projectName": "PaymentsApi",
-      "projectPath": "/home/pallav/nodejs/PaymentsApi/PaymentsApi.csproj",
+      "projectPath": "/home/pallav/nodejs/payments/payments-api/PaymentsApi.csproj",
       "packagesPath": "/home/pallav/.nuget/packages/",
-      "outputPath": "/home/pallav/nodejs/PaymentsApi/obj/",
+      "outputPath": "/home/pallav/nodejs/payments/payments-api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/pallav/.nuget/NuGet/NuGet.Config"
