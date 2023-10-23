@@ -20,3 +20,7 @@ EXPOSE 80
 
 # Define the entry point for your application
 CMD ["dotnet", "authentication-api.dll"]
+
+## sudo docker build -t authentication-api -f /home/pallav/nodejs/payments/authentication-api/.dockerfile /home/pallav/nodejs/payments/authentication-api
+## sudo docker run -d --name authentication-api-container authentication-api
+## sudo docker run -d -p 9001:9000 --name=portainer-newer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce

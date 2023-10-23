@@ -2,7 +2,7 @@ namespace authentication_api.Model;
 
 public class UserModel
 {
-     public string? UserId { get; set; }  // Nullable
+     public Guid? UserId { get; set; }  // Nullable
      public string? Username { get; set; }  // Nullable
      public string? Email { get; set; }  // Nullable
      public string? Password { get; set; }  // Nullable
