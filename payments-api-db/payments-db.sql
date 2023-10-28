@@ -56,10 +56,13 @@ CREATE TABLE users (
 );
 
 -- Example users with roles
--- INSERT INTO users (username, email, password, role_id)
--- VALUES
---     ('user1', 'user1@example.com', 'password1', 'UUID_of_Role1'),
---     ('user2', 'user2@example.com', 'password2', 'UUID_of_Role2');
+-- Insert users with specific roles
+INSERT INTO users (username, email, password, phone_number, role_id)
+VALUES
+    ('user1', 'user1@example.com', 'password1', '',(SELECT role_id FROM user_roles WHERE role_name = 'Admin')),
+    ('user2', 'user2@example.com', 'password2', '',(SELECT role_id FROM user_roles WHERE role_name = 'User')),
+    ('user3', 'user3@example.com', 'password3', '',(SELECT role_id FROM user_roles WHERE role_name = 'Moderator'));
+
 
 
 -- Drop the user_profiles table if it exists
@@ -76,8 +79,10 @@ CREATE TABLE user_profiles (
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
--- Example user profiles with profile pictures
--- INSERT INTO user_profiles (user_id, username, password, first_name, last_name, email, date_of_birth, gender, country, bio, profile_picture)
--- VALUES
---     ('UUID_of_User1', 'John', 'password1', 'John', 'Doe', 'user1@example.com', '1990-01-01', 'M', 'USA', 'Bio for user1', BYTEA_DATA1),
---     ('UUID_of_User2', 'Jane', 'password2', 'Jane', 'Smith', 'user2@example.com', '1985-03-15', 'F', 'Canada', 'Bio for user2', BYTEA_DATA2);
+
+-- Insert user profiles associated with specific users
+INSERT INTO user_profiles (user_id, date_of_birth, gender, country, bio, profile_picture)
+VALUES
+    ((SELECT user_id FROM users WHERE username = 'user1'), '1990-01-15', 'M', 'USA', 'User 1 bio', E'\\x012345'), -- 'user1' is associated with this profile
+    ((SELECT user_id FROM users WHERE username = 'user2'), '1985-04-23', 'F', 'Canada', 'User 2 bio', E'\\x987654'), -- 'user2' is associated with this profile
+    ((SELECT user_id FROM users WHERE username = 'user3'), '1992-09-07', 'M', 'UK', 'User 3 bio', E'\\xABCD12'); -- 'user3' is associated with this profile

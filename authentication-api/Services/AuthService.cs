@@ -1,62 +1,72 @@
-using System.Collections.Generic;
-using authentication_api.Model; 
 using System.IdentityModel.Tokens.Jwt;
-using authentication_api.Entities; 
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens; // Add this for SymmetricSecurityKey and SecurityAlgorithms
+using authentication_api.Model;
+using authentication_api.Entities;
 
-namespace authentication_api.Services;
-public class AuthService : IAuthService
+namespace authentication_api.Services
 {
-    private readonly PaymentsContext _dbContext; // Replace YourDbContext with your DbContext class
-    private readonly IConfiguration _configuration;
-
-    public AuthService(PaymentsContext dbContext, IConfiguration configuration)
+    public class AuthService : IAuthService
     {
-        _dbContext = dbContext;
-        _configuration = configuration;
-    }
-    // Implement the methods defined in the IAuthService interface
-    public UserModel Authenticate(string username, string password)
-    {
-        // Implement authentication logic here
-        var user = _dbContext.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+        private readonly PaymentsContext _dbContext;
+        private readonly IConfiguration _configuration;
 
-        if (user == null)
+        public AuthService(PaymentsContext dbContext, IConfiguration configuration)
         {
-            return null; // User not found or invalid credentials
+            _dbContext = dbContext;
+            _configuration = configuration;
         }
 
-        // You can map the User entity to a UserModel or create a UserModel with the necessary properties.
-        var userModel = new UserModel
+        public UserModel Authenticate(string username, string password)
         {
-            UserId = user.UserId,
-            Username = user.Username,
-            Email = user.Email,
-        };
+            // Implement authentication logic here
+            var user = _dbContext.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
-        return userModel;
-    }
+            if (user == null)
+            {
+                return null; // User not found or invalid credentials
+            }
 
-    public string GenerateToken(UserModel user)
-    {
-        // Implement token generation logic here
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["Jwt:ExpirationInDays"]));
+            // You can map the User entity to a UserModel or create a UserModel with the necessary properties.
+            var userModel = new UserModel
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                Email = user.Email,
+            };
 
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: new[] {
+            return userModel;
+        }
+
+        public string GenerateToken(UserModel user)
+        {
+            if (user == null)
+            {
+                return null; // Handle the case where the user is null
+            }
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpirationInMinutes"]));
+
+            var claims = new List<Claim>
+            {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 // Add other claims as needed
-            },
-            expires: expires,
-            signingCredentials: creds
-        );
+            };
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        return tokenHandler.WriteToken(token);
-    
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            return tokenHandler.WriteToken(token);
+        }
+
     }
 }

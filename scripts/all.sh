@@ -5,3 +5,5 @@ sudo service docker restart
 ./run-authentication-api.sh
 ./run-payments-api-db.sh   
 
+docker restart payments-api-db authentication-api
+

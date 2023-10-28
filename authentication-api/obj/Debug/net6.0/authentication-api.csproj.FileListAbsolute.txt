@@ -67,3 +67,12 @@
 /home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/runtimes/browser/lib/net6.0/System.Text.Encodings.Web.dll
 /home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Npgsql.dll
 /home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Microsoft.Extensions.Configuration.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Microsoft.Extensions.Configuration.Binder.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Microsoft.Extensions.Logging.Configuration.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Microsoft.Extensions.Logging.Console.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Serilog.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Serilog.Extensions.Logging.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Serilog.Sinks.Console.dll
+/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/Serilog.Sinks.File.dll
