@@ -10,7 +10,7 @@ namespace authentication_api.Model
         public char Gender { get; set; }
         public string Country { get; set; }
         public string Bio { get; set; }
-        public byte[] ProfilePicture { get; set; }
+        public byte[]? ProfilePicture { get; set; }
         public RegistrationModel()
          {
             Username = "";    // You can provide a default value.

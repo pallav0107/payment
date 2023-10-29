@@ -47,6 +47,7 @@ public class Startup
 
         services.AddTransient<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IRegistrationService, RegistrationService>();
 
         services.AddControllers(options =>
         {

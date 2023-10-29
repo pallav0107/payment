@@ -1,36 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
+using System.Data.Common;
+using Npgsql;
+using NpgsqlTypes;
 
-namespace authentication_api.Entities;
-
-public partial class PaymentsContext : DbContext
+namespace authentication_api.Entities
 {
-    private readonly IConfiguration _configuration;
+    public partial class PaymentsContext : DbContext
+    {
+        private readonly IConfiguration _configuration;
 
-    public PaymentsContext(DbContextOptions<PaymentsContext> options, IConfiguration configuration)
+        public PaymentsContext(DbContextOptions<PaymentsContext> options, IConfiguration configuration)
             : base(options)
-    {
-        _configuration = configuration;
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
         {
-                // Use the configuration object to retrieve the connection string
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseNpgsql(connectionString);
+            _configuration = configuration;
         }
-    }
 
-    public virtual DbSet<User> Users { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Use the configuration object to retrieve the connection string
+                var connectionString = _configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseNpgsql(connectionString);
+            }
+        }
 
-    public virtual DbSet<UserProfile> UserProfiles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
 
-    public virtual DbSet<UserRole> UserRoles { get; set; }
+//       public RegisterUserResult RegisterUser(
+//     string username,
+//     string email,
+//     string password,
+//     string phoneNumber,
+//     string role,
+//     DateTime dateOfBirth,
+//     char gender,
+//     string country,
+//     string bio,
+//     byte[] profilePicture)
+// {
+//     var messageParameter = new NpgsqlParameter("message", NpgsqlDbType.Text)
+//     {
+//         Direction = ParameterDirection.Output
+//     };
 
-    public virtual DbSet<RegisterUserResult> RegisterUserResult { get; set; }
+//     var userIdParameter = new NpgsqlParameter("user_id", NpgsqlDbType.Uuid)
+//     {
+//         Direction = ParameterDirection.Output
+//     };
+
+//     // Execute the SQL query with proper output parameter specification
+//     Database.ExecuteSqlRaw("SELECT payments.register_user(" +
+//         "@p0, @p1, @p2, @p3, @p4, @p5::timestamp with time zone, @p6, @p7, @p8, @p9)",
+//         username, email, password, phoneNumber, role, dateOfBirth, gender, country, bio, profilePicture);
+
+//     // Get the values of the OUT parameters
+//     var message = messageParameter.Value as string;
+//     var userId = userIdParameter.Value as Guid?;
+
+//     return new RegisterUserResult
+//     {
+//         Message = message,
+//         UserId = userId
+//     };
+// }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,7 +78,7 @@ public partial class PaymentsContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("users_pkey");
 
-            entity.ToTable("users");
+            entity.ToTable("users", "payments");
 
             entity.HasIndex(e => e.Email, "users_email_key").IsUnique();
 
@@ -68,7 +108,7 @@ public partial class PaymentsContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("user_profiles_pkey");
 
-            entity.ToTable("user_profiles");
+            entity.ToTable("user_profiles", "payments");
 
             entity.Property(e => e.UserId)
                 .HasDefaultValueSql("gen_random_uuid()")
@@ -92,7 +132,7 @@ public partial class PaymentsContext : DbContext
         {
             entity.HasKey(e => e.RoleId).HasName("user_roles_pkey");
 
-            entity.ToTable("user_roles");
+            entity.ToTable("user_roles", "payments");
 
             entity.Property(e => e.RoleId)
                 .HasDefaultValueSql("gen_random_uuid()")
@@ -102,14 +142,9 @@ public partial class PaymentsContext : DbContext
                 .HasColumnName("role_name");
         });
 
-        modelBuilder.Entity<RegisterUserResult>(entity =>
-        {
-            entity.HasNoKey(); // Since it doesn't have a primary key
-            entity.ToFunction("register_user"); // Use the actual function name
-        });
-
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+}
 }

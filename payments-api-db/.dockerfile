@@ -20,7 +20,7 @@ RUN chown postgres:postgres /docker-entrypoint-initdb.d/payments-db.sql
 
 
 ## sudo docker exec -it payments-api-db psql -U postgres -d payments    
-## SELECT * FROM "user" LIMIT 5;
+## SELECT * FROM "payments.user" LIMIT 5;
 ## psql -h localhost -U postgres -d payments -p 5432
 ## dotnet ef dbcontext scaffold "Host=localhost;Database=payments;Username=postgres;Password=postgres_password12#" Npgsql.EntityFrameworkCore.PostgreSQL -o Entities
 ## cat /var/lib/postgresql/data/pg_hba.conf
