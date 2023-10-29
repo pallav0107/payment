@@ -86,3 +86,57 @@ VALUES
     ((SELECT user_id FROM users WHERE username = 'user1'), '1990-01-15', 'M', 'USA', 'User 1 bio', E'\\x012345'), -- 'user1' is associated with this profile
     ((SELECT user_id FROM users WHERE username = 'user2'), '1985-04-23', 'F', 'Canada', 'User 2 bio', E'\\x987654'), -- 'user2' is associated with this profile
     ((SELECT user_id FROM users WHERE username = 'user3'), '1992-09-07', 'M', 'UK', 'User 3 bio', E'\\xABCD12'); -- 'user3' is associated with this profile
+
+
+CREATE OR REPLACE FUNCTION register_user(
+    p_username VARCHAR(50),
+    p_email VARCHAR(100),
+    p_password VARCHAR(100),
+    p_phone_number VARCHAR(15),
+    p_role_name VARCHAR(50),
+    p_date_of_birth DATE,
+    p_gender CHAR(1),
+    p_country VARCHAR(50),
+    p_bio TEXT,
+    p_profile_picture BYTEA,
+    OUT message TEXT,
+    OUT user_id UUID
+) AS $$
+DECLARE
+    v_user_id UUID;
+    v_role_id UUID;
+BEGIN
+    -- Check if the user already exists
+    IF EXISTS (SELECT 1 FROM users WHERE username = p_username) THEN
+        message := 'User already exists.';
+        user_id := NULL;
+        RETURN;
+    END IF;
+
+    -- If role is supplied, get the role ID
+    IF p_role_name IS NOT NULL THEN
+        SELECT role_id INTO v_role_id FROM user_roles WHERE role_name = p_role_name;
+        IF v_role_id IS NULL THEN
+            message := 'Role does not exist.';
+            user_id := NULL;
+            RETURN;
+        END IF;
+    ELSE
+        -- If role is not supplied, set it to 'User' role ID
+        SELECT role_id INTO v_role_id FROM user_roles WHERE role_name = 'User';
+    END IF;
+
+    -- Insert a new user into the 'users' table
+    INSERT INTO users (user_id, username, email, password, phone_number, role_id)
+    VALUES (gen_random_uuid(), p_username, p_email, p_password, p_phone_number, v_role_id)
+    RETURNING user_id INTO v_user_id;
+
+    -- Insert user profile into the 'user_profiles' table
+    INSERT INTO user_profiles (user_id, date_of_birth, gender, country, bio, profile_picture)
+    VALUES (v_user_id, p_date_of_birth, p_gender, p_country, p_bio, p_profile_picture);
+
+
+    message := 'User created.';
+    user_id := v_user_id;
+END;
+$$ LANGUAGE plpgsql;

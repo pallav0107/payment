@@ -13,6 +13,7 @@ sudo docker run -d --name payments-api-db -p 5432:5432 payments-api-db
 # Wait for PostgreSQL to start
 until sudo docker exec payments-api-db pg_isready -q -h localhost -U postgres; do
   echo "Waiting for PostgreSQL to start..."
+  sudo docker start payments-api-db
   sleep 2
 done
 
@@ -33,13 +34,6 @@ AUTH_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{
 sudo docker exec -it payments-api-db sh -c "echo 'host    all             all             $AUTH_IP/32         md5' >> /var/lib/postgresql/data/pg_hba.conf"
 
 sudo docker exec -it payments-api-db sh -c "echo 'listen_addresses = '\''$PG_IP, $AUTH_IP'\''\n' | tee -a /var/lib/postgresql/data/postgresql.conf"
-
-
-# Update pg_hba.conf to accept connections from all IP addresses
-#sudo docker exec -it payments-api-db sh -c "echo 'host    all             all             0.0.0.0/0         md5' >> /var/lib/postgresql/data/pg_hba.conf"
-
-# Update postgresql.conf to listen on all IP addresses
-#sudo docker exec -it payments-api-db sh -c "echo 'listen_addresses = '\''*'\''\n' | tee -a /var/lib/postgresql/data/postgresql.conf"
 
 # Restart the PostgreSQL service for the changes to take effect
 sudo docker exec -it payments-api-db service postgresql restart

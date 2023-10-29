@@ -1,0 +1,17 @@
+  private readonly IConfiguration _configuration;
+
+        public PaymentsContext(DbContextOptions<PaymentsContext> options, IConfiguration configuration)
+            : base(options)
+        {
+            _configuration = configuration;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Use the configuration object to retrieve the connection string
+                var connectionString = _configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseNpgsql(connectionString);
+            }
+        }

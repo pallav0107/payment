@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8Ht6s5MQMkrXldTCwskN3rOR4/HZUwNcH2OCX8yDW+CrPmHELm3qzhrCTpfRqoW78yiSJH1VY5pg6/9M2aGr/w==",
+  "dgSpecHash": "YkoMMwXamVOMt5OLqYMQU8TMjnwaYp23J1uiPugzp3IsHB6BU+sfI9D+TtNYMRyRLdyhQBXgpWMabxpD6NkqgA==",
   "success": true,
   "projectFilePath": "/home/pallav/nodejs/payments/authentication-api/authentication-api.csproj",
   "expectedPackageFiles": [
@@ -53,11 +53,11 @@
     "/home/pallav/.nuget/packages/microsoft.codeanalysis.csharp/2.8.0/microsoft.codeanalysis.csharp.2.8.0.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.codeanalysis.razor/2.2.0/microsoft.codeanalysis.razor.2.2.0.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
-    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore/7.0.12/microsoft.entityframeworkcore.7.0.12.nupkg.sha512",
-    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.12/microsoft.entityframeworkcore.abstractions.7.0.12.nupkg.sha512",
-    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.12/microsoft.entityframeworkcore.analyzers.7.0.12.nupkg.sha512",
+    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore/7.0.13/microsoft.entityframeworkcore.7.0.13.nupkg.sha512",
+    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.13/microsoft.entityframeworkcore.abstractions.7.0.13.nupkg.sha512",
+    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.13/microsoft.entityframeworkcore.analyzers.7.0.13.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.entityframeworkcore.design/7.0.12/microsoft.entityframeworkcore.design.7.0.12.nupkg.sha512",
-    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.12/microsoft.entityframeworkcore.relational.7.0.12.nupkg.sha512",
+    "/home/pallav/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.13/microsoft.entityframeworkcore.relational.7.0.13.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "/home/pallav/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",

@@ -25,14 +25,13 @@ public class RegistrationController : ControllerBase
 
         var result = _registrationService.RegisterUser(model);
 
-        if (result.Succeeded)
+        if (result.UserId != null)
         {
-            return Ok("Registration successful");
+            return Ok($"Registration successful. User ID: {result.UserId}");
         }
         else
         {
-            return BadRequest(result.Errors);
+            return BadRequest(result.Message);
         }
     }
-
 }

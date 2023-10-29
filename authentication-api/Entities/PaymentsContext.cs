@@ -2,31 +2,35 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace authentication_api.Entities;
-    public partial class PaymentsContext : DbContext
-    {
-        private readonly IConfiguration _configuration;
 
-        public PaymentsContext(DbContextOptions<PaymentsContext> options, IConfiguration configuration)
+public partial class PaymentsContext : DbContext
+{
+    private readonly IConfiguration _configuration;
+
+    public PaymentsContext(DbContextOptions<PaymentsContext> options, IConfiguration configuration)
             : base(options)
-        {
-            _configuration = configuration;
-        }
+    {
+        _configuration = configuration;
+    }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
                 // Use the configuration object to retrieve the connection string
-                var connectionString = _configuration.GetConnectionString("DefaultConnection");
-                optionsBuilder.UseNpgsql(connectionString);
-            }
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseNpgsql(connectionString);
         }
+    }
 
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserProfile> UserProfiles { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserProfile> UserProfiles { get; set; }
+
+    public virtual DbSet<UserRole> UserRoles { get; set; }
+
+    public virtual DbSet<RegisterUserResult> RegisterUserResult { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -96,6 +100,12 @@ namespace authentication_api.Entities;
             entity.Property(e => e.RoleName)
                 .HasMaxLength(50)
                 .HasColumnName("role_name");
+        });
+
+        modelBuilder.Entity<RegisterUserResult>(entity =>
+        {
+            entity.HasNoKey(); // Since it doesn't have a primary key
+            entity.ToFunction("register_user"); // Use the actual function name
         });
 
         OnModelCreatingPartial(modelBuilder);

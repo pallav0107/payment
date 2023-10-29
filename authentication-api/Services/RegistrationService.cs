@@ -1,66 +1,69 @@
-using System.Collections.Generic; // Required for List<T>
-using authentication_api.Model; // Replace 'ProjectRoot' with the actual root namespace
+using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+using authentication_api.Model;
+using authentication_api.Entities;
+using Microsoft.EntityFrameworkCore; // Remove the problematic line
 
-namespace authentication_api.Services;
-public class RegistrationService : IRegistrationService
+namespace authentication_api.Services
 {
- public RegistrationResult RegisterUser(RegistrationModel model)
-{
-    // Check if the user already exists (you may have your own logic for this).
-    if (UserExists(model.Username))
+    public class RegistrationService : IRegistrationService
     {
-        return new RegistrationResult { Succeeded = false, Errors = new List<string> { "User already exists." } };
+        private readonly PaymentsContext _dbContext;
+        private readonly IConfiguration _configuration;
+
+        public RegistrationService(PaymentsContext dbContext, IConfiguration configuration)
+        {
+            _dbContext = dbContext;
+            _configuration = configuration;
+        }
+
+        public RegisterUserResult RegisterUser(RegistrationModel model)
+        {
+            try
+            {
+                // Hash the password (you should never store plain text passwords).
+                string hashedPassword = HashPassword(model.Password);
+
+                // Call the PostgreSQL stored procedure 'register_user' to create the user and get the message and user_id.
+                var result = _dbContext.Set<RegisterUserResult>()
+                            .FromSqlRaw("SELECT * FROM register_user({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9})",
+                                model.Username,
+                                model.Email,
+                                hashedPassword,
+                                model.PhoneNumber,
+                                null, // Role name is not provided here
+                                model.DateOfBirth,
+                                model.Gender,
+                                model.Country,
+                                model.Bio,
+                                model.ProfilePicture)
+                            .FirstOrDefault();
+
+                if (result.Message == "User created.")
+                {
+                    // User is created, return the user_id.
+                    return result;
+                }
+                else
+                {
+                    // User already exists or other error, handle accordingly.
+                    throw new Exception(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, such as user already existing or other errors.
+                return new RegisterUserResult { Message = "User registration failed." };
+            }
+        }
+
+        private string HashPassword(string password)
+        {
+            // Hash the password using a secure hash function.
+            // You should use a secure password hashing library or mechanism.
+            // This is just a placeholder.
+            return password;
+        }
     }
-
-    // Hash the password (you should never store plain text passwords).
-    string hashedPassword = HashPassword(model.Password);
-
-    // Create a new user entity and save it to the database (you may have your own database logic).
-    var user = new UserModel
-    {
-        Username = model.Username,
-        Email = model.Email,
-        Password = hashedPassword
-        // Other user properties
-    };
-
-    // Save the user to the database and handle any errors.
-    try
-    {
-        // Save the user to the database (you may have your own database logic).
-        SaveUser(user);
-        return new RegistrationResult { Succeeded = true, Errors = null };
-    }
-    catch (Exception ex)
-    {
-        return new RegistrationResult { Succeeded = false, Errors = new List<string> { ex.Message } };
-    }
-}
-
-// Helper methods, you should implement these as needed.
-private bool UserExists(string username)
-{
-    // Check if the user already exists in your data store.
-    // Return true if the user exists, false otherwise.
-    // You should implement your own logic to check for existing users.
-    // This is just a placeholder.
-    return false;
-}
-
-private string HashPassword(string password)
-{
-    // Hash the password using a secure hash function.
-    // You should use a secure password hashing library or mechanism.
-    // This is just a placeholder.
-    return password;
-}
-
-private void SaveUser(UserModel user)
-{
-    // Save the user to your data store (e.g., a database).
-    // You should implement your own logic for persisting user data.
-    // This is just a placeholder.
-}
-
-
 }

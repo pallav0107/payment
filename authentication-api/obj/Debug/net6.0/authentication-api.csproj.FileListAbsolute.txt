@@ -1,4 +1,3 @@
-/home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/appsettings.Development.json
 /home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/appsettings.json
 /home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/authentication-api
 /home/pallav/nodejs/payments/authentication-api/bin/Debug/net6.0/authentication-api.deps.json
