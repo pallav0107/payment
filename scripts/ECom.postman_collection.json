@@ -1,0 +1,967 @@
+{
+	"info": {
+		"_postman_id": "eda92bd5-bc01-46da-b813-80e957ac2f99",
+		"name": "ECom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24677357"
+	},
+	"item": [
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Get Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/order?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":1,\n    \"productId\":1,\n    \"orderDate\": \"2022-11-06T19:00:30.000Z\",\n    \"totalAmount\": 1500,\n    \"orderStatus\":\"CREATED\",\n    \"status\": true,\n    \"shippingAddress\": \"Address2\",\n    \"billingAddress\": \"BAddress2\",\n    \"paymentMethod\": \"ONLINE\",\n    \"deliveryDate\": \"2022-11-06T19:00:30.000Z\",\n    \"customerNotes\":\"Notes\",\n    \"invoiceId\":12345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/order/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/order/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventory",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/inventory?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"inventory"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/inventory/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"inventory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Inventory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": 101,\n    \"quantityAvailable\": 0,\n    \"lastUpdated\": \"2023-11-22\",\n    \"vendor\": \"vendor_91389a6eba07\",\n    \"minStockThreshold\": 0,\n    \"mazStockThreshold\": 0,\n    \"reorderQuantity\": 0,\n    \"costPrice\": 0.00,\n    \"supplierId\": 0.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/inventory",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "locahost:8082/inventory/1",
+							"host": [
+								"locahost"
+							],
+							"port": "8082",
+							"path": [
+								"inventory",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Activity",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Add Activity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"userId\": 0,\n  \"timestamp\": \"2022-11-06T19:00:30.000Z\",\n  \"productId\": 0,\n  \"actionType\": \"ACTION1\",\n  \"deviceType\": \"COMPUTER\",\n  \"browser\": \"browser_281c70705f1f\",\n  \"location\": \"location_855a66c734d0\",\n  \"duration\": 0,\n  \"referrer\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8083/activity",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"activity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8083/activity/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"activity",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Activity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8083/activity/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"activity",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8084/payment?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"payment"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"orderId\": 0,\n  \"amount\": 0.00,\n  \"paymentStatus\": \"PENDING\",\n  \"timestamp\": \"2022-11-06T19:00:30.000Z\",\n  \"paymentGateway\": \"paymentGateway_a3eafd57b7e4\",\n  \"cardType\": \"CREDIT\",\n  \"cardLastDigits\": 0,\n  \"billingAddress\": \"billingAddress_4b71bfe137bd\",\n  \"transactionId\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8084/payment",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8084/payment/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"payment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Payment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8084/payment/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"payment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Payment Intent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 1900,\n  \"productId\":102,\n  \"currency\": \"INR\",\n  \"paymentStatus\": \"PENDING\",\n  \"timestamp\": \"2023-12-01T11:00:30.000Z\",\n  \"paymentGateway\": \"STRIPE\",\n  \"cardType\": \"CREDIT\",\n  \"cardLastDigits\": 4242,\n  \"billingAddress\": \"billingAddress_2546f93e3fd7\",\n  \"cardDetails\": {\n    \"cvc\": \"123\",\n    \"expMonth\": 12,\n    \"expYear\": 2023,\n    \"number\": \"4242424242424242\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8084/payment/create-payment-intent",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"payment",
+								"create-payment-intent"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "7500",
+									"disabled": true
+								},
+								{
+									"key": "currency",
+									"value": "INR",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Payment Intent",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "localhost:8084/payment/create-payment-intent?amount=7500&currency=INR",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"payment",
+										"create-payment-intent"
+									],
+									"query": [
+										{
+											"key": "amount",
+											"value": "7500"
+										},
+										{
+											"key": "currency",
+											"value": "INR"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 28 Nov 2023 11:27:15 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"amount\": 7500,\n    \"amountCapturable\": null,\n    \"amountDetails\": null,\n    \"amountReceived\": null,\n    \"application\": null,\n    \"applicationFeeAmount\": null,\n    \"automaticPaymentMethods\": null,\n    \"canceledAt\": null,\n    \"cancellationReason\": null,\n    \"captureMethod\": null,\n    \"clientSecret\": \"pi_3OHPRXSGsMueitXC03xkNyKZ_secret_X5t1HBk3j2MxKyekHBjoMbn2G\",\n    \"confirmationMethod\": null,\n    \"created\": null,\n    \"currency\": \"inr\",\n    \"customer\": null,\n    \"description\": null,\n    \"id\": \"pi_3OHPRXSGsMueitXC03xkNyKZ\",\n    \"invoice\": null,\n    \"lastPaymentError\": null,\n    \"latestCharge\": null,\n    \"livemode\": null,\n    \"metadata\": null,\n    \"nextAction\": null,\n    \"object\": null,\n    \"onBehalfOf\": null,\n    \"paymentMethod\": null,\n    \"paymentMethodOptions\": null,\n    \"paymentMethodTypes\": null,\n    \"processing\": null,\n    \"receiptEmail\": null,\n    \"review\": null,\n    \"setupFutureUsage\": null,\n    \"shipping\": null,\n    \"source\": null,\n    \"statementDescriptor\": null,\n    \"statementDescriptorSuffix\": null,\n    \"status\": \"requires_confirmation\",\n    \"transferData\": null,\n    \"transferGroup\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Confirm Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"orderId\": 0,\n  \"amount\": 2003,\n  \"currency\": \"INR\",\n  \"paymentStatus\": \"PENDING\",\n  \"timestamp\": \"2023-12-01T11:00:30.000Z\",\n  \"paymentGateway\": \"STRIPE\",\n  \"cardType\": \"CREDIT\",\n  \"cardLastDigits\": 4242,\n  \"transactionId\":\"pi_3OMTgRSGsMueitXC1ggqlr0g\",\n  \"billingAddress\": \"billingAddress_2546f93e3fd7\",\n  \"cardDetails\": {\n    \"cvc\": \"123\",\n    \"expMonth\": 12,\n    \"expYear\": 2023,\n    \"number\": \"4242424242424242\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8084/payment/confirm-payment",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"payment",
+								"confirm-payment"
+							],
+							"query": [
+								{
+									"key": "paymentIntentId",
+									"value": "pi_3OHPYsSGsMueitXC0FsEBprq",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"orderId\": 0,\n  \"amount\": 1200,\n  \"currency\": \"INR\",\n  \"paymentStatus\": \"PENDING\",\n  \"timestamp\": \"2023-12-01T11:00:30.000Z\",\n  \"paymentGateway\": \"STRIPE\",\n  \"cardType\": \"CREDIT\",\n  \"cardLastDigits\": 4242,\n  \"transactionId\":\"pi_3OIQ71SGsMueitXC08QjEkE3\",\n  \"billingAddress\": \"billingAddress_2546f93e3fd7\",\n  \"cardDetails\": {\n    \"cvc\": \"123\",\n    \"expMonth\": 12,\n    \"expYear\": 2023,\n    \"number\": \"4242424242424242\"\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8084/payment/confirm-payment",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"payment",
+										"confirm-payment"
+									],
+									"query": [
+										{
+											"key": "paymentIntentId",
+											"value": "pi_3OHPYsSGsMueitXC0FsEBprq",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Dec 2023 07:35:10 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"paymentId\": 1,\n    \"orderId\": 0,\n    \"amount\": 1200,\n    \"currency\": null,\n    \"paymentStatus\": \"PENDING\",\n    \"timestamp\": \"2023-12-01T11:00:30\",\n    \"paymentGateway\": \"STRIPE\",\n    \"cardType\": \"CREDIT\",\n    \"cardLastDigits\": 4242,\n    \"billingAddress\": \"billingAddress_2546f93e3fd7\",\n    \"transactionId\": \"pi_3OIQ71SGsMueitXC08QjEkE3\",\n    \"cardDetails\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8085/product?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"name\": \"name_8920c6602e8a\",\n  \"description\": \"description_d8818b0d78be\",\n  \"price\": 1000.00,\n  \"category\": \"category_b3ae6c73d3e9\",\n  \"brand\": \"brand_9dd3eda88fff\",\n  \"weight\": 10.00,\n  \"dimensions\": \"dimensions_63d86988ce18\",\n  \"manufacturer\": \"manufacturer_6eaf20750761\",\n  \"availability\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8085/product",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8085/product/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8085/product/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shopping Cart",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/cart?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"cart"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add to cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": 0,\n  \"producId\": 0,\n  \"quantity\": 0,\n  \"timestamp\": \"2022-11-06T19:00:30.000Z\",\n  \"sessionId\": 0,\n  \"whishlistId\": 0,\n  \"couponApplied\": \"couponApplied_c370fd61fa79\",\n  \"isAbandoned\": false,\n  \"isPurchased\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8086/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/cart/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete to Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/cart/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/review?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"review"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productId\": 0,\n  \"userId\": 0,\n  \"rating\": 0,\n  \"comment\": \"comment_2989d15e538d\",\n  \"timestamp\": \"2022-11-06T19:00:30.000Z\",\n  \"isVerified\": false,\n  \"isHelpful\": false,\n  \"responseId\": 0,\n  \"reviewerLocation\": \"reviewerLocation_628c7296c87f\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8087/review",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8087/review/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8087",
+							"path": [
+								"review",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete to Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/review/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"review",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Promotions",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8088/promotion?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"promotion"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Promotion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productId\": 0,\n  \"userId\": 0,\n  \"rating\": 0,\n  \"comment\": \"comment_2989d15e538d\",\n  \"timestamp\": \"2022-11-06T19:00:30.000Z\",\n  \"isVerified\": false,\n  \"isHelpful\": false,\n  \"responseId\": 0,\n  \"reviewerLocation\": \"reviewerLocation_628c7296c87f\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8088/promotion",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"promotion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8088/promotion/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"promotion",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete to Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8088/promotion/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"promotion",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

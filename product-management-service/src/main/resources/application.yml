@@ -1,0 +1,17 @@
+server:
+  port: 8085
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+
+  application:
+    name: PRODUCT-SERVICE

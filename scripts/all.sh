@@ -7,3 +7,4 @@ sudo service docker restart
 
 docker restart payments-api-db authentication-api
 
+docker compose up

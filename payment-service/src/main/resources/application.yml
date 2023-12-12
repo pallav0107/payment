@@ -1,0 +1,35 @@
+server:
+  port: 8084
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+
+  application:
+    name: PAYMENT-SERVICE
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    topic: payment_events
+
+stripe:
+  apikey: pk_test_51OGICSSGsMueitXCIIlyDGWqGq2OMO0pPyu6rLOOtADbnO2oiOJ9cuiE1FplQDBudBlCazWZHoZHkDJqXGKjB4NJ00kefCrSkl
+  secret-key: sk_test_51OGICSSGsMueitXCkJC2OMNiQoWNfe7X3KCdTW5YsSuI7cGkECVacNZyTayeBe68RRmswkQaawjlzEF3198oGE5J00c1KcBngD
+  token: tok_visa
+
+
