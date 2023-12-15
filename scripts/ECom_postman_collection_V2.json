@@ -105,6 +105,202 @@
 			]
 		},
 		{
+			"name": "Returns",
+			"item": [
+				{
+					"name": "Get Returns",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8089/returns?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"returns"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Returns",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\":1,\n    \"productId\":1,\n    \"orderDate\": \"2022-11-06T19:00:30.000Z\",\n    \"totalAmount\": 1500,\n    \"orderStatus\":\"CREATED\",\n    \"status\": true,\n    \"shippingAddress\": \"Address2\",\n    \"billingAddress\": \"BAddress2\",\n    \"paymentMethod\": \"ONLINE\",\n    \"deliveryDate\": \"2022-11-06T19:00:30.000Z\",\n    \"customerNotes\":\"Notes\",\n    \"invoiceId\":12345\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8089/returns",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"returns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8089/returns/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"returns",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8089/returns/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"returns",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Support",
+			"item": [
+				{
+					"name": "Get Support",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/support?page=0&size=20",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"support"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Support",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"userId\": 0,\n  \"issueType\": \"issueType_a46a1698e805\",\n  \"resolvedStatus\": false,\n  \"status\": false,\n  \"ticketDate\": \"2022-11-06T19:00:30.000Z\",\n  \"agentId\": \"agentId_6d31069074f3\",\n  \"priority\": \"priority_09d09b7bb59b\",\n  \"department\": \"department_59b4ad14c2e1\",\n  \"responseTime\": \"2022-11-06T19:00:30.000Z\",\n  \"resolution_notes\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/support",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"support"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get support by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/support/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"support",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/support/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"support",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Inventory",
 			"item": [
 				{
@@ -479,7 +675,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"orderId\": 0,\n  \"amount\": 2003,\n  \"currency\": \"INR\",\n  \"paymentStatus\": \"PENDING\",\n  \"timestamp\": \"2023-12-01T11:00:30.000Z\",\n  \"paymentGateway\": \"STRIPE\",\n  \"cardType\": \"CREDIT\",\n  \"cardLastDigits\": 4242,\n  \"transactionId\":\"pi_3OMTgRSGsMueitXC1ggqlr0g\",\n  \"billingAddress\": \"billingAddress_2546f93e3fd7\",\n  \"cardDetails\": {\n    \"cvc\": \"123\",\n    \"expMonth\": 12,\n    \"expYear\": 2023,\n    \"number\": \"4242424242424242\"\n  }\n}",
+							"raw": "{\n  \n  \"amount\": 20000,\n  \"currency\": \"INR\",\n  \"productId\": 1,\n  \"paymentStatus\": \"PENDING\",\n  \"timestamp\": \"2023-12-01T11:00:30.000Z\",\n  \"paymentGateway\": \"STRIPE\",\n  \"cardType\": \"CREDIT\",\n  \"cardLastDigits\": 4242,\n  \"transactionId\":\"pi_3OMoK3SGsMueitXC0P9o8C7S\",\n  \"billingAddress\": \"billingAddress_2546f93e3fd7\",\n  \"cardDetails\": {\n    \"cvc\": \"123\",\n    \"expMonth\": 12,\n    \"expYear\": 2023,\n    \"number\": \"4242424242424242\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -22,6 +22,7 @@ public class PaymentDTO {
   Long expYear;
   String number;
   private long paymentId;
+  private long productId;
   private long orderId;
   private Long amount;
   private String currency;

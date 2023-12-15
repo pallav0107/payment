@@ -32,6 +32,7 @@ public class PaymentListener {
     OrderDTO orderDTO = new OrderDTO();
     orderDTO.setOrderId(paymentDTO.getOrderId());
     orderDTO.setPaymentId(paymentDTO.getPaymentId());
+    orderDTO.setProductId(paymentDTO.getProductId());
     orderService.addOrder(orderDTO);
     log.info("Attendance Message received for transaction: ", paymentDTO.getTransactionId());
   }
