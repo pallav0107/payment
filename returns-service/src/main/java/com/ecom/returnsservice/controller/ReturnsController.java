@@ -36,10 +36,10 @@ public class ReturnsController {
     return new ResponseEntity<>(returnsService.addReturns(returnsDTO), HttpStatus.CREATED);
   }
 
-  @DeleteMapping(value = "/{paymentId}")
-  public ResponseEntity<String> deleteReturns(@PathVariable long paymentId) {
+  @DeleteMapping(value = "/{returnsId}")
+  public ResponseEntity<String> deleteReturns(@PathVariable long returnsId) {
     log.info("Inside Returns controller:: delete Returns");
-    returnsService.deleteReturns(paymentId);
+    returnsService.deleteReturns(returnsId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 

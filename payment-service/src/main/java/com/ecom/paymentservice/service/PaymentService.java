@@ -15,6 +15,7 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.PaymentMethod;
+import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentMethodCreateParams;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,9 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @JsonSerialize
@@ -62,24 +61,23 @@ public class PaymentService {
 
     PaymentMethodCreateParams.Token token =
         PaymentMethodCreateParams.Token.builder().setToken("tok_visa").build();
-    Map<String, Object> paymentMethodParams = new HashMap<>();
-    paymentMethodParams.put("token", token);
+    //Map<String, Object> paymentMethodParams = new HashMap<>();
+    //paymentMethodParams.put("token", token);
 
     PaymentMethodCreateParams paymentMethodCreateParams =
         PaymentMethodCreateParams.builder().setType(PaymentMethodCreateParams.Type.CARD)
             .setCard(card).setCard(token).build();
 
     PaymentMethod paymentMethod = PaymentMethod.create(paymentMethodCreateParams);
+    Long amountInPaisa = paymentDTO.getAmount() * 100;
+    PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+        .setAmount(amountInPaisa)  // Set the amount in cents or smallest unit of the currency
+        .setCurrency(paymentDTO.getCurrency()).setPaymentMethod(paymentMethod.getId())
+        .setAutomaticPaymentMethods(PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
+            .setAllowRedirects(
+                PaymentIntentCreateParams.AutomaticPaymentMethods.AllowRedirects.NEVER)
+            .setEnabled(true).build()).putExtraParam("setup_future_usage", "off_session").build();
 
-    Map<String, Object> params = new HashMap<>();
-    params.put("amount", paymentDTO.getAmount());
-    params.put("currency", paymentDTO.getCurrency());
-    params.put("payment_method", paymentMethod.getId());
-
-    Map<String, Object> automaticPaymentMethods = new HashMap<>();
-    automaticPaymentMethods.put("enabled", true);
-    automaticPaymentMethods.put("allow_redirects", "never");
-    params.put("automatic_payment_methods", automaticPaymentMethods);
 
     PaymentIntent paymentIntent = PaymentIntent.create(params);
     // we can call direct confirm api
@@ -124,6 +122,7 @@ public class PaymentService {
   public PaymentDTO confirmPayment(PaymentDTO paymentDTO) throws StripeException {
     Stripe.apiKey = secretKey;
     PaymentIntent paymentIntent = PaymentIntent.retrieve(paymentDTO.getTransactionId());
+
     PaymentIntent result = paymentIntent.confirm(); // Confirm the payment
     if (result != null) {
       //save Payment into Payment DB
@@ -131,7 +130,6 @@ public class PaymentService {
       PaymentDTO responseDTO = this.initiatePayment(paymentDTO);
 
       // sending detail to kafka topic for confirm order
-
       kafkaPublisher.sendMessage(responseDTO);
       return responseDTO;
     }

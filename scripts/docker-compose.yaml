@@ -18,15 +18,13 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "payment_events:1:1,orders:1:1"
+      KAFKA_CREATE_TOPICS: "payment_events:1:1,orders:1:1,product_catalog:1:1"
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-
     networks:
       - payment-network
     depends_on:
       - zookeeper
-
 
   dbservice:
     image: postgres
@@ -34,7 +32,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: productdb
+      POSTGRES_DB: payment
     ports:
       - "5432:5432"
     networks:
@@ -60,7 +58,7 @@ services:
     ports:
       - "8084:8084"
     networks:
-      - payment-network
+      - payment-network  
 
   order-service:
     build: ./order-service
@@ -100,7 +98,116 @@ services:
     ports:
       - "8082:8082"
     networks:
-      - payment-network     
+      - payment-network
+      
+  product-service:
+    build: ./product-service
+    container_name: product-service
+    depends_on:
+      - dbservice
+      - zookeeper
+      - kafka
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dbservice:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka:9092
+      SPRING_KAFKA_BROKER-LIST: kafka:9092
+    ports:
+      - "8085:8085"
+    networks:
+      - payment-network
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    depends_on:
+      - dbservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dbservice:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8083:8083"
+    networks:
+      - payment-network
+
+  cart-service:
+    build: ./cart-service
+    container_name: cart-service
+    depends_on:
+      - dbservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dbservice:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8086:8086"
+    networks:
+      - payment-network 
+
+  reviews-service:
+    build: ./reviews-service
+    container_name: reviews-service
+    depends_on:
+      - dbservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dbservice:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8087:8087"
+    networks:
+      - payment-network 
+
+  support-service:
+    build: ./support-service
+    container_name: support-service
+    depends_on:
+      - dbservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dbservice:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8090:8090"
+    networks:
+      - payment-network 
+
+  promotions-service:
+    build: ./promotions-service
+    container_name: promotions-service
+    depends_on:
+      - dbservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dbservice:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8088:8088"
+    networks:
+      - payment-network 
+
+  returns-service:
+    build: ./returns-service
+    container_name: returns-service
+    depends_on:
+      - dbservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://dbservice:5432/payment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.postgresql.Driver
+    ports:
+      - "8089:8089"
+    networks:
+      - payment-network                            
 
 networks:
   payment-network:

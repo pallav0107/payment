@@ -1,12 +1,12 @@
 package com.ecom.productmanagementservice.service;
 
 
+import com.ecom.productmanagementservice.config.KafkaPublisher;
 import com.ecom.productmanagementservice.constant.ErrorConstant;
 import com.ecom.productmanagementservice.dto.InventoryDTO;
 import com.ecom.productmanagementservice.dto.ProductDTO;
 import com.ecom.productmanagementservice.exception.BusinessException;
 import com.ecom.productmanagementservice.model.Product;
-import com.ecom.productmanagementservice.proxy.InventoryServiceProxy;
 import com.ecom.productmanagementservice.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -29,24 +29,27 @@ public class ProductService {
   @Autowired
   ProductRepository productRepository;
   @Autowired
-  InventoryServiceProxy inventoryServiceProxy;
-  @Autowired
   ModelMapper modelMapper;
+  @Autowired
+  private KafkaPublisher kafkaPublisher;
 
   public ProductDTO addProduct(ProductDTO productDTO) {
     Product savedProduct;
     savedProduct = productRepository.save(modelMapper.map(productDTO, Product.class));
     log.info("Inside Product Service:: product added successfully");
 
-    // after product add successfully
+    // Creating Inventory based on the product
     InventoryDTO inventoryDTO = new InventoryDTO();
-    inventoryDTO.setProductId(productDTO.getProductId());
-    inventoryDTO.setCostPrice(productDTO.getPrice());
+    inventoryDTO.setProductId(savedProduct.getProductId());
+    inventoryDTO.setVendor("TEST VENDOR");
+    inventoryDTO.setSupplierId(new BigDecimal(123));
+    inventoryDTO.setReorderQuantity(1000);
+    inventoryDTO.setQuantityAvailable(1000);
     inventoryDTO.setLastUpdated(LocalDate.now());
-    inventoryDTO.setQuantityAvailable(100);
-    inventoryDTO.setSupplierId(BigDecimal.valueOf(1));
-    inventoryDTO.setVendor("TEST");
-    inventoryServiceProxy.addInventory(inventoryDTO);
+    inventoryDTO.setCostPrice(productDTO.getPrice());
+    inventoryDTO.setMinStockThreshold(1);
+    inventoryDTO.setMaxStockThreshold(100);
+    kafkaPublisher.sendMessage(inventoryDTO);
     return modelMapper.map(savedProduct, ProductDTO.class);
   }
 
